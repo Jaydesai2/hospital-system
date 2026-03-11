@@ -1,0 +1,134 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        /* Premium HSL Palette - Refined for Harmony */
+        --hospital-primary: 221 83% 53%;
+        /* Modern Royal Blue */
+        --hospital-secondary: 199 89% 48%;
+        /* Bright Azure */
+        --hospital-accent: 341 95% 62%;
+        /* Vibrant Rose */
+        --hospital-success: 158 64% 52%;
+        /* Emerald Teal */
+        --hospital-info: 214 95% 93%;
+        /* Soft Sky Blue */
+        --hospital-bg: 210 40% 98%;
+        /* Soft Slate Background */
+        --hospital-text: 215 25% 27%;
+        /* Slate Dark Gray */
+        --hospital-header: 222 47% 11%;
+        /* Deep Space Blue */
+
+        /* Glassmorphism & Effects */
+        --glass-bg: rgba(255, 255, 255, 0.75);
+        --glass-border: rgba(255, 255, 255, 0.2);
+        --premium-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+        /* Soft expansive shadow */
+    }
+
+    body {
+        @apply bg-[hsl(var(--hospital-bg))] text-[hsl(var(--hospital-text))] antialiased;
+        font-family: 'Inter', sans-serif;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: 'Poppins', sans-serif;
+        letter-spacing: -0.01em;
+    }
+}
+
+@layer components {
+    .btn-premium {
+        @apply px-6 py-3 rounded-2xl font-bold transition-all duration-500 transform hover:-translate-y-1 active:scale-95 shadow-lg relative overflow-hidden;
+    }
+
+    .btn-primary-hospital {
+        @apply btn-premium bg-[hsl(var(--hospital-primary))] text-white hover:bg-[hsl(var(--hospital-secondary))] hover:shadow-2xl hover:shadow-blue-200/50;
+    }
+
+    .card-medical {
+        @apply bg-white/70 backdrop-blur-xl p-8 rounded-[2.5rem] shadow-xl transition-all duration-500 hover:shadow-2xl border border-white/40 hover:-translate-y-2;
+    }
+
+    .glass-nav {
+        @apply bg-white/60 backdrop-blur-2xl border-b border-white/20 sticky top-0 z-50;
+    }
+
+    .text-gradient {
+        @apply bg-clip-text text-transparent bg-gradient-to-r from-[hsl(var(--hospital-primary))] to-[hsl(var(--hospital-secondary))];
+    }
+
+    .section-spacing {
+        @apply py-24 lg:py-32;
+    }
+
+    .input-premium {
+        @apply w-full px-5 py-4 bg-white/50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-blue-100 focus:border-[hsl(var(--hospital-primary))] transition-all outline-none;
+    }
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@keyframes pulse-glow {
+    0% {
+        box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 15px rgba(37, 99, 235, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(37, 99, 235, 0);
+    }
+}
+
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-slow {
+    animation: float 12s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+    animation: pulse-glow 2s infinite;
+}
+
+.shadow-premium {
+    box-shadow: var(--premium-shadow);
+}
+
+/* Hide Browser Extension Overlays (McAfee WebAdvisor, etc.) */
+[id^="mcafee-webadvisor-"],
+[class^="mwa-advisor-"],
+[id*="mcafee-advisor"],
+iframe[src*="mcafee"],
+#mwa-advisor-icon,
+.mwa-advisor-container {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    opacity: 0 !important;
+    z-index: -9999 !important;
+}
