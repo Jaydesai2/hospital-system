@@ -11,6 +11,9 @@ class Invoice extends Model
         'appointment_id',
         'patient_id',
         'doctor_id',
+        'consultation_fee',
+        'prescription_fee',
+        'additional_charges',
         'total_amount',
         'status',
         'due_date'

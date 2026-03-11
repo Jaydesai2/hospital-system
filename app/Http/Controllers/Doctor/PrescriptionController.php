@@ -32,10 +32,12 @@ class PrescriptionController extends Controller
         {
             Prescription::create([
                 'medical_record_id' => $medicalRecord->id,
+                'appointment_id' => $appointment->id,
                 'medicine_name' => $medicine,
                 'dosage' => $request->dosage[$key],
                 'frequency' => $request->frequency[$key],
                 'duration' => $request->duration[$key],
+                'cost' => $request->cost[$key] ?? 0,
             ]);
         }
 

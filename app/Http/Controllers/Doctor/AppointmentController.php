@@ -45,35 +45,60 @@ public function startConsultation($id)
     return back()->with('success','Consultation started');
 }
 
-public function complete($id)
-{
-    $appointment = Appointment::with('doctor', 'patient')->findOrFail($id);
+    public function complete($id)
+    {
+        $appointment = Appointment::with(['doctor', 'patient', 'prescriptions'])->findOrFail($id);
 
-    $appointment->status = 'completed';
-    $appointment->save();
+        $appointment->status = 'completed';
+        $appointment->save();
 
-    // Generate Invoice
-    $invoice = Invoice::create([
-        'invoice_number' => 'INV-' . strtoupper(substr(uniqid(), -8)),
-        'appointment_id' => $appointment->id,
-        'patient_id' => $appointment->patient_id,
-        'doctor_id' => $appointment->doctor_id,
-        'total_amount' => $appointment->doctor->consultation_fee,
-        'status' => 'pending',
-        'due_date' => now()->addDays(7),
-    ]);
+        // Calculate Fees
+        $consultationFee = $appointment->doctor->consultation_fee ?? 0;
+        $prescriptionFee = $appointment->prescriptions->sum('cost');
+        $totalAmount = $consultationFee + $prescriptionFee;
 
-    // Add consultation item
-    InvoiceItem::create([
-        'invoice_id' => $invoice->id,
-        'description' => 'Consultation Fee - ' . $appointment->doctor->specialization,
-        'quantity' => 1,
-        'unit_price' => $appointment->doctor->consultation_fee,
-        'total_price' => $appointment->doctor->consultation_fee,
-    ]);
+        // Generate or Update Invoice
+        $invoice = Invoice::updateOrCreate(
+            ['appointment_id' => $appointment->id],
+            [
+                'invoice_number' => 'INV-' . strtoupper(substr(uniqid(), -8)),
+                'patient_id' => $appointment->patient_id,
+                'doctor_id' => $appointment->doctor_id,
+                'consultation_fee' => $consultationFee,
+                'prescription_fee' => $prescriptionFee,
+                'total_amount' => $totalAmount,
+                'status' => 'pending',
+                'due_date' => now()->addDays(7),
+            ]
+        );
 
-    return back()->with('success','Consultation completed and invoice generated');
-}
+        // Clear existing items if updating
+        $invoice->items()->delete();
+
+        // Add consultation item
+        InvoiceItem::create([
+            'invoice_id' => $invoice->id,
+            'description' => 'Consultation Fee - ' . $appointment->doctor->specialization,
+            'quantity' => 1,
+            'unit_price' => $consultationFee,
+            'total_price' => $consultationFee,
+        ]);
+
+        // Add prescription items
+        foreach ($appointment->prescriptions as $prescription) {
+            if ($prescription->cost > 0) {
+                InvoiceItem::create([
+                    'invoice_id' => $invoice->id,
+                    'description' => 'Medicine: ' . $prescription->medicine_name . ' (' . $prescription->dosage . ')',
+                    'quantity' => 1,
+                    'unit_price' => $prescription->cost,
+                    'total_price' => $prescription->cost,
+                ]);
+            }
+        }
+
+        return back()->with('success', 'Consultation completed and dynamic invoice generated');
+    }
 
 public function cancel($id)
 {

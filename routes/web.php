@@ -123,6 +123,7 @@ Route::middleware('auth')->group(function () {
     // Admin Invoice Management
     Route::middleware('admin')->group(function () {
         Route::get('/admin/invoices', [\App\Http\Controllers\Admin\InvoiceController::class, 'index'])->name('admin.invoices.index');
+        Route::get('/admin/invoices/{id}', [\App\Http\Controllers\Admin\InvoiceController::class, 'show'])->name('admin.invoices.show');
         Route::post('/admin/invoices/{id}/paid', [\App\Http\Controllers\Admin\InvoiceController::class, 'markAsPaid'])->name('admin.invoices.paid');
         Route::post('/admin/invoices/{id}/delete', [\App\Http\Controllers\Admin\InvoiceController::class, 'destroy'])->name('admin.invoices.delete');
     });
