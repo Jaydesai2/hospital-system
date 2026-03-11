@@ -154,6 +154,11 @@
                                                 class="px-2.5 py-1 bg-red-500 hover:bg-red-600 text-white text-[10px] rounded-lg font-bold uppercase tracking-wider">Cancel</button>
                                         </form>
                                     @endif
+                                    @if($appointment->status == 'in_consultation')
+<a href="{{ route('doctor.prescription.create', $appointment->id) }}" class="px-4 py-2 bg-green-600 text-white rounded">
+Prescribe Medicine
+</a>
+@endif
                                 </div>
                             </td>
                         </tr>

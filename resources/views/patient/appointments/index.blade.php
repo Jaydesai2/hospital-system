@@ -27,42 +27,29 @@
                 <thead>
                     <tr class="bg-white">
                         <th class="px-5 py-6">
-                            <button class="w-full flex items-center justify-between px-5 py-3 rounded-2xl bg-slate-50/50 border border-transparent hover:border-slate-100 hover:bg-white hover:shadow-sm transition-all duration-300 group">
-                                <span class="text-[10px] font-black text-slate-400 group-hover:text-slate-900 uppercase tracking-[0.2em]">Medical Expert</span>
-                                <svg class="w-3.5 h-3.5 text-slate-300 group-hover:text-[hsl(var(--hospital-primary))] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path>
-                                </svg>
-                            </button>
+                            <span class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Medical Expert</span>
                         </th>
                         <th class="px-5 py-6">
-                            <button class="w-full flex items-center justify-between px-5 py-3 rounded-2xl bg-slate-50/50 border border-transparent hover:border-slate-100 hover:bg-white hover:shadow-sm transition-all duration-300 group">
-                                <span class="text-[10px] font-black text-slate-400 group-hover:text-slate-900 uppercase tracking-[0.2em]">Schedule</span>
-                                <svg class="w-3.5 h-3.5 text-slate-300 group-hover:text-[hsl(var(--hospital-primary))] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path>
-                                </svg>
-                            </button>
+                            <span class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Schedule</span>
                         </th>
                         <th class="px-5 py-6">
-                            <button class="w-full flex items-center justify-between px-5 py-3 rounded-2xl bg-slate-50/50 border border-transparent hover:border-slate-100 hover:bg-white hover:shadow-sm transition-all duration-300 group">
-                                <span class="text-[10px] font-black text-slate-400 group-hover:text-slate-900 uppercase tracking-[0.2em]">Clinical Status</span>
-                                <svg class="w-3.5 h-3.5 text-slate-300 group-hover:text-[hsl(var(--hospital-primary))] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path>
-                                </svg>
-                            </button>
+                            <span class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Clinical Status</span>
                         </th>
                         <th class="px-5 py-6">
-                            <button class="w-full flex items-center justify-between px-5 py-3 rounded-2xl bg-slate-50/50 border border-transparent hover:border-slate-100 hover:bg-white hover:shadow-sm transition-all duration-300 group">
-                                <span class="text-[10px] font-black text-slate-400 group-hover:text-slate-900 uppercase tracking-[0.2em]">Observation / Reason</span>
-                                <svg class="w-3.5 h-3.5 text-slate-300 group-hover:text-[hsl(var(--hospital-primary))] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path>
-                                </svg>
-                            </button>
+                            <span class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Observation / Reason</span>
+                        </th>
+                        <th class="px-5 py-6">
+                            <span class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Prescription</span>
                         </th>
                     </tr>
                 </thead>
+
                 <tbody class="divide-y divide-slate-50">
+
                     @forelse($appointments as $appointment)
+
                         <tr class="hover:bg-slate-50/50 transition-all duration-300 group">
+
                             <td class="px-10 py-7">
                                 <div class="flex items-center gap-4">
                                     <div
@@ -74,10 +61,12 @@
                                             {{ $appointment->doctor->user->name ?? 'Unknown Doctor' }}</h4>
                                         <p
                                             class="text-xs font-bold text-[hsl(var(--hospital-primary))] uppercase tracking-widest mt-0.5">
-                                            {{ $appointment->doctor->specialization }}</p>
+                                            {{ $appointment->doctor->specialization }}
+                                        </p>
                                     </div>
                                 </div>
                             </td>
+
                             <td class="px-10 py-7">
                                 <div class="space-y-1">
                                     <div class="flex items-center gap-2">
@@ -88,35 +77,54 @@
                                             </path>
                                         </svg>
                                         <span
-                                            class="text-slate-900 font-black text-sm tracking-tight">{{ \Carbon\Carbon::parse($appointment->appointment_date)->format('M d, Y') }}</span>
+                                            class="text-slate-900 font-black text-sm tracking-tight">
+                                            {{ \Carbon\Carbon::parse($appointment->appointment_date)->format('M d, Y') }}
+                                        </span>
                                     </div>
+
                                     <div class="flex items-center gap-2 ml-1">
                                         <div class="w-1 h-1 rounded-full bg-slate-300"></div>
                                         <span
-                                            class="text-slate-400 text-[11px] font-bold uppercase tracking-widest">{{ \Carbon\Carbon::parse($appointment->appointment_time)->format('h:i A') }}</span>
+                                            class="text-slate-400 text-[11px] font-bold uppercase tracking-widest">
+                                            {{ \Carbon\Carbon::parse($appointment->appointment_time)->format('h:i A') }}
+                                        </span>
                                     </div>
                                 </div>
                             </td>
+
                             <td class="px-10 py-7">
                                 <span class="inline-flex items-center px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.15em] ring-1 shadow-sm
-                                        {{ $appointment->status === 'requested' ? 'bg-orange-50 text-orange-600 ring-orange-100' : '' }}
-                                        {{ $appointment->status === 'confirmed' ? 'bg-green-50 text-green-600 ring-green-100' : '' }}
-                                        {{ $appointment->status === 'completed' ? 'bg-blue-50 text-blue-600 ring-blue-100' : '' }}
-                                        {{ $appointment->status === 'cancelled' ? 'bg-red-50 text-red-600 ring-red-100' : '' }}
-                                    ">
+                                    {{ $appointment->status === 'requested' ? 'bg-orange-50 text-orange-600 ring-orange-100' : '' }}
+                                    {{ $appointment->status === 'confirmed' ? 'bg-green-50 text-green-600 ring-green-100' : '' }}
+                                    {{ $appointment->status === 'completed' ? 'bg-blue-50 text-blue-600 ring-blue-100' : '' }}
+                                    {{ $appointment->status === 'cancelled' ? 'bg-red-50 text-red-600 ring-red-100' : '' }}
+                                ">
                                     {{ $appointment->status }}
                                 </span>
                             </td>
+
                             <td class="px-10 py-7">
                                 <p
                                     class="text-slate-500 text-sm font-medium italic opacity-70 group-hover:opacity-100 transition-opacity">
                                     "{{ $appointment->reason ?? 'Routine check-up' }}"
                                 </p>
                             </td>
+
+                            <td class="px-10 py-7">
+
+                                <a href="{{ route('patient.prescription.show', $appointment->id) }}"
+                                   class="inline-flex items-center px-4 py-2 bg-[hsl(var(--hospital-primary))] text-white text-xs font-bold rounded-xl hover:opacity-90 transition">
+                                    View
+                                </a>
+
+                            </td>
+
                         </tr>
+
                     @empty
+
                         <tr>
-                            <td colspan="4" class="px-10 py-32 text-center">
+                            <td colspan="5" class="px-10 py-32 text-center">
                                 <div class="flex flex-col items-center gap-4">
                                     <div
                                         class="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center text-slate-200">
@@ -125,12 +133,15 @@
                                                 d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                         </svg>
                                     </div>
-                                    <p class="text-slate-400 font-black text-[11px] uppercase tracking-[0.3em]">No Visit
-                                        History Found</p>
+                                    <p class="text-slate-400 font-black text-[11px] uppercase tracking-[0.3em]">
+                                        No Visit History Found
+                                    </p>
                                 </div>
                             </td>
                         </tr>
+
                     @endforelse
+
                 </tbody>
             </table>
         </div>
