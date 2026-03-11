@@ -146,7 +146,7 @@
                                 <tbody class="divide-y divide-slate-50">
                                     @forelse($data as $doctor)
                                         <tr>
-                                            <td class="px-8 py-5 font-bold text-slate-900 capitalize">{{ $doctor->user->name }}</td>
+                                            <td class="px-8 py-5 font-bold text-slate-900 capitalize">{{ $doctor->user->name ?? 'Unknown Doctor' }}</td>
                                             <td class="px-8 py-5 text-slate-500">{{ $doctor->specialization }}</td>
                                         </tr>
                                     @empty
@@ -171,7 +171,7 @@
                                 <tbody class="divide-y divide-slate-50">
                                     @forelse($data as $patient)
                                         <tr>
-                                            <td class="px-8 py-5 font-bold text-slate-900 capitalize">{{ $patient->user->name }}
+                                            <td class="px-8 py-5 font-bold text-slate-900 capitalize">{{ $patient->user->name ?? 'Unknown Patient' }}
                                             </td>
                                             <td class="px-8 py-5 text-slate-500">{{ $patient->user->email }}</td>
                                         </tr>
@@ -205,9 +205,9 @@
                                     @forelse($data as $appointment)
                                         <tr>
                                             <td class="px-8 py-5 font-bold text-slate-900 capitalize">
-                                                {{ $appointment->patient->user->name }}
+                                                {{ $appointment->patient->user->name ?? 'Unknown Patient' }}
                                             </td>
-                                            <td class="px-8 py-5 text-slate-500 capitalize">{{ $appointment->doctor->user->name }}
+                                            <td class="px-8 py-5 text-slate-500 capitalize">{{ $appointment->doctor->user->name ?? 'Unknown Doctor' }}
                                             </td>
                                             <td class="px-8 py-5 text-slate-500">
                                                 {{ \Carbon\Carbon::parse($appointment->appointment_date)->format('M d, Y') }}

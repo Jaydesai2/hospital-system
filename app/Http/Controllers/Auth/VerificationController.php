@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OtpVerificationMail;
 
 class VerificationController extends Controller
 {
@@ -43,6 +45,8 @@ class VerificationController extends Controller
             'otp_code' => (string) random_int(100000, 999999),
             'otp_expires_at' => now()->addMinutes(15)
         ]);
+
+        Mail::to($request->user()->email)->send(new OtpVerificationMail($request->user()->otp_code));
 
         session(['testing_otp' => $request->user()->otp_code]);
 

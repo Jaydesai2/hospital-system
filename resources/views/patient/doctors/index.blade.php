@@ -35,7 +35,7 @@
                     <div class="relative mb-8">
                         <div
                             class="w-24 h-24 rounded-[2rem] bg-gradient-to-tr from-blue-50 to-indigo-50 border border-white flex items-center justify-center text-[hsl(var(--hospital-primary))] text-3xl font-black shadow-sm group-hover:rotate-6 transition-all duration-500">
-                            {{ substr($doctor->user->name, 0, 1) }}
+                            {{ substr($doctor->user->name ?? 'U', 0, 1) }}
                         </div>
                         <div class="absolute -right-2 -bottom-2 w-8 h-8 bg-green-500 border-4 border-white rounded-full flex items-center justify-center shadow-lg"
                             title="Active Specialist">
@@ -48,7 +48,7 @@
 
                     <h3
                         class="text-2xl font-black text-slate-900 tracking-tight leading-tight mb-2 group-hover:text-[hsl(var(--hospital-primary))] transition-colors">
-                        Dr. {{ $doctor->user->name }}</h3>
+                        Dr. {{ $doctor->user->name ?? 'Unknown Doctor' }}</h3>
                     <div class="flex flex-col items-center gap-2 mb-8">
                         <span
                             class="text-xs font-black text-[hsl(var(--hospital-primary))] uppercase tracking-[0.2em]">{{ $doctor->specialization }}</span>

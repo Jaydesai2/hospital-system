@@ -13,12 +13,10 @@
 
                 <div
                     class="w-28 h-28 rounded-[2rem] bg-gradient-to-tr from-blue-50 to-indigo-50 border border-white flex items-center justify-center text-[hsl(var(--hospital-primary))] text-4xl font-black mx-auto mb-8">
-                    {{ substr($doctor->user->name, 0, 1) }}
+                    {{ substr($doctor->user->name ?? 'U', 0, 1) }}
                 </div>
 
-                <h3 class="text-2xl font-black text-slate-900">
-                    Dr. {{ $doctor->user->name }}
-                </h3>
+                    Dr. {{ $doctor->user->name ?? 'Unknown Doctor' }}
 
                 <div class="flex flex-col items-center gap-2 mb-8">
 

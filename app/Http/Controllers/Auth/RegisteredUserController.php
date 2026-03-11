@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OtpVerificationMail;
 
 class RegisteredUserController extends Controller
 {
@@ -43,6 +45,8 @@ class RegisteredUserController extends Controller
             'otp_code' => (string) random_int(100000, 999999),
             'otp_expires_at' => now()->addMinutes(15)
         ]);
+
+        Mail::to($user->email)->send(new OtpVerificationMail($user->otp_code));
 
         session(['testing_otp' => $user->otp_code]);
 

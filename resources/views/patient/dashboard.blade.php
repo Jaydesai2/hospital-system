@@ -127,7 +127,7 @@
                                         </div>
                                         <div>
                                             <p class="font-bold text-slate-900 capitalize">Dr.
-                                                {{ $appointment->doctor->user->name }}</p>
+                                                {{ $appointment->doctor->user->name ?? 'Unknown Doctor' }}</p>
                                             <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
                                                 {{ $appointment->doctor->specialization }}</p>
                                         </div>

@@ -71,7 +71,7 @@
                                     </div>
                                     <div>
                                         <h4 class="font-black text-slate-900 text-base tracking-tight leading-tight">Dr.
-                                            {{ $appointment->doctor->user->name }}</h4>
+                                            {{ $appointment->doctor->user->name ?? 'Unknown Doctor' }}</h4>
                                         <p
                                             class="text-xs font-bold text-[hsl(var(--hospital-primary))] uppercase tracking-widest mt-0.5">
                                             {{ $appointment->doctor->specialization }}</p>

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Appointment;
 use App\Models\Doctor;
+use App\Models\Invoice;
+use App\Models\InvoiceItem;
 use Illuminate\Support\Facades\Auth;
 
 class AppointmentController extends Controller
@@ -45,12 +47,32 @@ public function startConsultation($id)
 
 public function complete($id)
 {
-    $appointment = Appointment::findOrFail($id);
+    $appointment = Appointment::with('doctor', 'patient')->findOrFail($id);
 
     $appointment->status = 'completed';
     $appointment->save();
 
-    return back()->with('success','Consultation completed');
+    // Generate Invoice
+    $invoice = Invoice::create([
+        'invoice_number' => 'INV-' . strtoupper(substr(uniqid(), -8)),
+        'appointment_id' => $appointment->id,
+        'patient_id' => $appointment->patient_id,
+        'doctor_id' => $appointment->doctor_id,
+        'total_amount' => $appointment->doctor->consultation_fee,
+        'status' => 'pending',
+        'due_date' => now()->addDays(7),
+    ]);
+
+    // Add consultation item
+    InvoiceItem::create([
+        'invoice_id' => $invoice->id,
+        'description' => 'Consultation Fee - ' . $appointment->doctor->specialization,
+        'quantity' => 1,
+        'unit_price' => $appointment->doctor->consultation_fee,
+        'total_price' => $appointment->doctor->consultation_fee,
+    ]);
+
+    return back()->with('success','Consultation completed and invoice generated');
 }
 
 public function cancel($id)

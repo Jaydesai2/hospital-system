@@ -16,13 +16,15 @@ use App\Http\Controllers\Patient\BillingController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\AboutController;
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::middleware('guest')->group(function () {
+    Route::get('/', function () {
+        return view('index');
+    });
 
-Route::get('/contact-us', [ContactUsController::class, 'index'])->name('contactus.index');
-Route::post('/contact-us', [ContactUsController::class, 'store'])->name('contactus.store');
-Route::get('/about', [AboutController::class, 'index'])->name('about');
+    Route::get('/contact-us', [ContactUsController::class, 'index'])->name('contactus.index');
+    Route::post('/contact-us', [ContactUsController::class, 'store'])->name('contactus.store');
+    Route::get('/about', [AboutController::class, 'index'])->name('about');
+});
 
 Route::get('/dashboard', function () {
 
@@ -62,6 +64,14 @@ Route::middleware('auth')->group(function () {
         Route::post('/admin/doctors/{id}/update', [DoctorController::class, 'update'])->name('admin.doctors.update');
         Route::post('/admin/doctors/{id}/delete', [DoctorController::class, 'destroy'])->name('admin.doctors.delete');
 
+        // Department Management
+        Route::get('/admin/departments', [\App\Http\Controllers\Admin\DepartmentController::class, 'index'])->name('admin.departments.index');
+        Route::get('/admin/departments/create', [\App\Http\Controllers\Admin\DepartmentController::class, 'create'])->name('admin.departments.create');
+        Route::post('/admin/departments/store', [\App\Http\Controllers\Admin\DepartmentController::class, 'store'])->name('admin.departments.store');
+        Route::get('/admin/departments/{id}/edit', [\App\Http\Controllers\Admin\DepartmentController::class, 'edit'])->name('admin.departments.edit');
+        Route::post('/admin/departments/{id}/update', [\App\Http\Controllers\Admin\DepartmentController::class, 'update'])->name('admin.departments.update');
+        Route::post('/admin/departments/{id}/delete', [\App\Http\Controllers\Admin\DepartmentController::class, 'destroy'])->name('admin.departments.delete');
+
     });
 
 
@@ -92,11 +102,19 @@ Route::middleware('auth')->group(function () {
         Route::post('/patient/appointments/store', [AppointmentController::class, 'store'])->name('patient.appointments.store');
         Route::get('/patient/appointments', [AppointmentController::class, 'myAppointments'])->name('patient.appointments');
         Route::get('/patient/billing', [BillingController::class, 'index'])->name('patient.billing');
+        Route::get('/patient/billing/{id}', [BillingController::class, 'show'])->name('patient.billing.show');
         Route::get('/patient/support', function () {
             return view('patient.support.support');
         })->name('patient.support');
         Route::get('/patient/available-slots/{doctor}/{date}', [AppointmentController::class, 'availableSlots']);
 
+    });
+
+    // Admin Invoice Management
+    Route::middleware('admin')->group(function () {
+        Route::get('/admin/invoices', [\App\Http\Controllers\Admin\InvoiceController::class, 'index'])->name('admin.invoices.index');
+        Route::post('/admin/invoices/{id}/paid', [\App\Http\Controllers\Admin\InvoiceController::class, 'markAsPaid'])->name('admin.invoices.paid');
+        Route::post('/admin/invoices/{id}/delete', [\App\Http\Controllers\Admin\InvoiceController::class, 'destroy'])->name('admin.invoices.delete');
     });
 
 });

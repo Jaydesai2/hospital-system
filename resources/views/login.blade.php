@@ -7,17 +7,11 @@
         <div class="hidden md:block relative bg-slate-950 overflow-hidden">
             <img src="{{ asset('images/login_bg.jpg') }}" alt="Secure Login"
                 class="absolute inset-0 w-full h-full object-cover opacity-60">
-            <div
-                class="absolute inset-0 bg-gradient-to-br from-blue-600/40 via-slate-950/80 to-indigo-950 mix-blend-multiply">
-            </div>
 
             <div class="relative h-full flex flex-col justify-end p-16 text-white">
 
                 <div
                     class="bg-white/10 backdrop-blur-3xl rounded-[2.5rem] p-10 border border-white/10 shadow-2xl relative overflow-hidden group">
-                    <div
-                        class="absolute -right-10 -bottom-10 w-32 h-32 bg-blue-500/20 rounded-full blur-3xl group-hover:scale-150 transition-all duration-700">
-                    </div>
                     <span
                         class="inline-block px-4 py-1.5 bg-blue-500/20 border border-blue-500/30 rounded-full text-[10px] font-black uppercase tracking-[0.2em] text-blue-300 mb-6">Secure
                         Access</span>

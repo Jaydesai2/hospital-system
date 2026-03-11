@@ -151,46 +151,54 @@
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-50">
-                            @foreach($invoices as $invoice)
+                            @forelse($invoices as $invoice)
                                 <tr class="hover:bg-slate-50/80 transition-all duration-300 group">
                                     <td class="px-8 py-6">
                                         <span
-                                            class="font-black text-slate-900 text-xs tracking-tight">{{ $invoice['id'] }}</span>
+                                            class="font-black text-slate-900 text-xs tracking-tight">{{ $invoice->invoice_number }}</span>
                                     </td>
                                     <td class="px-8 py-6">
                                         <div>
                                             <p class="font-bold text-slate-900 text-xs leading-tight">
-                                                {{ $invoice['description'] }}</p>
+                                                Consultation with Dr. {{ $invoice->doctor->user?->name ?? 'Unknown' }}
+                                            </p>
                                             <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mt-1">
-                                                {{ \Carbon\Carbon::parse($invoice['date'])->format('d M') }} •
-                                                {{ $invoice['type'] }}</p>
+                                                {{ $invoice->created_at->format('d M Y') }} • Service
+                                            </p>
                                         </div>
                                     </td>
                                     <td class="px-8 py-6">
                                         <span
-                                            class="font-black text-slate-900 text-sm tracking-tight">${{ number_format($invoice['amount'], 2) }}</span>
+                                            class="font-black text-slate-900 text-sm tracking-tight">${{ number_format($invoice->total_amount, 2) }}</span>
                                     </td>
                                     <td class="px-8 py-6">
                                         <span class="inline-flex items-center px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-[0.1em] ring-1
-                                                {{ $invoice['status'] === 'pending' ? 'bg-orange-50 text-orange-600 ring-orange-100' : '' }}
-                                                {{ $invoice['status'] === 'paid' ? 'bg-green-50 text-green-600 ring-green-100' : '' }}
-                                                {{ $invoice['status'] === 'failed' ? 'bg-red-50 text-red-600 ring-red-100' : '' }}
+                                                {{ $invoice->status === 'pending' ? 'bg-orange-50 text-orange-600 ring-orange-100' : '' }}
+                                                {{ $invoice->status === 'paid' ? 'bg-green-50 text-green-600 ring-green-100' : '' }}
+                                                {{ $invoice->status === 'cancelled' ? 'bg-red-50 text-red-600 ring-red-100' : '' }}
                                             ">
-                                            {{ $invoice['status'] }}
+                                            {{ $invoice->status }}
                                         </span>
                                     </td>
                                     <td class="px-8 py-6 text-right">
-                                        <button
-                                            class="text-slate-400 hover:text-[hsl(var(--hospital-primary))] transition-colors">
+                                        <a href="{{ route('patient.billing.show', $invoice->id) }}"
+                                            class="text-slate-400 hover:text-[hsl(var(--hospital-primary))] transition-colors inline-block">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                                    d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4">
-                                                </path>
+                                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                                             </svg>
-                                        </button>
+                                        </a>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="px-8 py-20 text-center">
+                                        <p class="text-[11px] font-black text-slate-400 uppercase tracking-[0.3em]">No invoices found</p>
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

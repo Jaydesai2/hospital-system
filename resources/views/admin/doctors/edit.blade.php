@@ -31,7 +31,7 @@
                             Name</label>
                         <div
                             class="w-full bg-slate-50 border-slate-100 border rounded-[1.5rem] px-8 py-5 font-bold text-slate-500 tracking-tight">
-                            {{ $doctor->user->name }}
+                            {{ $doctor->user->name ?? 'Unknown Doctor' }}
                         </div>
                     </div>
 
@@ -41,7 +41,7 @@
                             Email</label>
                         <div
                             class="w-full bg-slate-50 border-slate-100 border rounded-[1.5rem] px-8 py-5 font-bold text-slate-500 tracking-tight">
-                            {{ $doctor->user->email }}
+                            {{ $doctor->user->email ?? 'No Email' }}
                         </div>
                     </div>
                 </div>
