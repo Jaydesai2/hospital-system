@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-dashboard-layout>
     <x-slot name="header">
         <div>
             <h2 class="text-xl font-black text-[hsl(var(--hospital-header))] tracking-tight">Billing & <span
@@ -173,10 +173,10 @@
                                     </td>
                                     <td class="px-8 py-6">
                                         <span class="inline-flex items-center px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-[0.1em] ring-1
-                                                {{ $invoice->status === 'pending' ? 'bg-orange-50 text-orange-600 ring-orange-100' : '' }}
-                                                {{ $invoice->status === 'paid' ? 'bg-green-50 text-green-600 ring-green-100' : '' }}
-                                                {{ $invoice->status === 'cancelled' ? 'bg-red-50 text-red-600 ring-red-100' : '' }}
-                                            ">
+                                                    {{ $invoice->status === 'pending' ? 'bg-orange-50 text-orange-600 ring-orange-100' : '' }}
+                                                    {{ $invoice->status === 'paid' ? 'bg-green-50 text-green-600 ring-green-100' : '' }}
+                                                    {{ $invoice->status === 'cancelled' ? 'bg-red-50 text-red-600 ring-red-100' : '' }}
+                                                        ">
                                             {{ $invoice->status }}
                                         </span>
                                     </td>
@@ -187,7 +187,8 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
                                                     d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
+                                                </path>
                                             </svg>
                                         </a>
                                     </td>
@@ -195,7 +196,8 @@
                             @empty
                                 <tr>
                                     <td colspan="5" class="px-8 py-20 text-center">
-                                        <p class="text-[11px] font-black text-slate-400 uppercase tracking-[0.3em]">No invoices found</p>
+                                        <p class="text-[11px] font-black text-slate-400 uppercase tracking-[0.3em]">No
+                                            invoices found</p>
                                     </td>
                                 </tr>
                             @endforelse
@@ -257,4 +259,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+    </x-app-layout>

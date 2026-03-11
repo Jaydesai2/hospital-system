@@ -25,7 +25,7 @@
 
                 <div class="grid md:grid-cols-2 gap-10">
                     <!-- Name -->
-                    <div class="space-y-3">
+                    <div class="md:col-span-2 space-y-3">
                         <label for="name" class="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] ml-2">Department Name</label>
                         <input type="text" name="name" id="name" required value="{{ old('name', $department->name) }}"
                             class="w-full bg-slate-50/50 border-slate-100 border focus:border-[hsl(var(--hospital-primary))] focus:bg-white rounded-[1.5rem] px-8 py-5 focus:ring-4 focus:ring-blue-500/5 transition-all duration-300 font-bold text-slate-900 placeholder:text-slate-300 tracking-tight"
@@ -35,18 +35,6 @@
                         @enderror
                     </div>
 
-                    <!-- Status -->
-                    <div class="space-y-3">
-                        <label for="status" class="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] ml-2">Status</label>
-                        <select name="status" id="status" required
-                            class="w-full bg-slate-50/50 border-slate-100 border focus:border-[hsl(var(--hospital-primary))] focus:bg-white rounded-[1.5rem] px-8 py-5 focus:ring-4 focus:ring-blue-500/5 transition-all duration-300 font-bold text-slate-900 h-[64px]">
-                            <option value="active" {{ old('status', $department->status) === 'active' ? 'selected' : '' }}>Active</option>
-                            <option value="inactive" {{ old('status', $department->status) === 'inactive' ? 'selected' : '' }}>Inactive</option>
-                        </select>
-                        @error('status')
-                            <p class="text-rose-500 text-[10px] font-bold mt-1 ml-2">{{ $message }}</p>
-                        @enderror
-                    </div>
 
                     <!-- Description -->
                     <div class="md:col-span-2 space-y-3">

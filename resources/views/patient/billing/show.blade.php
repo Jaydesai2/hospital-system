@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-dashboard-layout>
     <x-slot name="header">
         <div class="flex items-center gap-4">
             <a href="{{ route('patient.billing') }}"

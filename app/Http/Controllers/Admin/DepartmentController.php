@@ -24,7 +24,6 @@ class DepartmentController extends Controller
         $request->validate([
             'name' => 'required|string|max:255|unique:departments,name',
             'description' => 'nullable|string',
-            'status' => 'required|in:active,inactive',
         ]);
 
         Department::create($request->all());
@@ -45,7 +44,6 @@ class DepartmentController extends Controller
         $request->validate([
             'name' => 'required|string|max:255|unique:departments,name,' . $id,
             'description' => 'nullable|string',
-            'status' => 'required|in:active,inactive',
         ]);
 
         $department->update($request->all());

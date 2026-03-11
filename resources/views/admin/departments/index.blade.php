@@ -33,9 +33,7 @@
                         <th class="px-5 py-6">
                             <span class="px-5 py-3 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Department Name</span>
                         </th>
-                        <th class="px-5 py-6">
-                            <span class="px-5 py-3 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Status</span>
-                        </th>
+
                         <th class="px-5 py-6 text-right">
                             <span class="px-5 py-3 text-[10px] font-black text-slate-300 uppercase tracking-[0.2em]">Actions</span>
                         </th>
@@ -58,12 +56,7 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="px-10 py-7">
-                                <span class="inline-flex items-center px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.15em] ring-1 shadow-sm
-                                    {{ $dept->status === 'active' ? 'bg-emerald-50 text-emerald-600 ring-emerald-100' : 'bg-slate-50 text-slate-400 ring-slate-100' }}">
-                                    {{ $dept->status }}
-                                </span>
-                            </td>
+
                             <td class="px-10 py-7 text-right">
                                 <div class="flex items-center justify-end gap-3">
                                     <a href="{{ route('admin.departments.edit', $dept->id) }}"
