@@ -17,13 +17,14 @@ use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\Doctor\PrescriptionController;
 use App\Http\Controllers\Patient\PatientPrescriptionController;
+use App\Http\Controllers\Doctor\PatientHistoryController;
+
+
+Route::get('/', function () {
+    return view('index');
+});
 
 Route::middleware('guest')->group(function () {
-    Route::get('/', function () {
-        return view('index');
-    });
-
-
     Route::get('/contact-us', [ContactUsController::class, 'index'])->name('contactus.index');
     Route::post('/contact-us', [ContactUsController::class, 'store'])->name('contactus.store');
     Route::get('/about', [AboutController::class, 'index'])->name('about');
@@ -98,6 +99,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/doctor/prescription/{appointment}', [PrescriptionController::class, 'create'])->name('doctor.prescription.create');
 
         Route::post('/doctor/prescription/{appointment}/store', [PrescriptionController::class, 'store'])->name('doctor.prescription.store');
+
+        Route::get('/doctor/patient-history/{patient}', [PatientHistoryController::class, 'show'])->name('doctor.patient.history');
 
     });
 

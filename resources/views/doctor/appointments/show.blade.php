@@ -45,7 +45,10 @@
                 <label class="text-xs text-slate-400 font-bold">Status</label>
                 <p>{{ $appointment->status }}</p>
             </div>
-
+           <a href="{{ route('doctor.patient.history', $appointment->patient_id) }}"
+class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-bold">
+View Patient History
+</a>
         </div>
 
     </div>

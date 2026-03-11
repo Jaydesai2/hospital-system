@@ -21,4 +21,5 @@ class MedicalRecord extends Model
     {
         return $this->hasMany(Prescription::class);
     }
+    
 }
