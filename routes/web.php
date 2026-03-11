@@ -17,6 +17,10 @@ use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\Doctor\PrescriptionController;
 use App\Http\Controllers\Patient\PatientPrescriptionController;
+use App\Http\Controllers\Doctor\PatientHistoryController;
+
+
+
 Route::get('/', function () {
     return view('index');
 });
@@ -85,8 +89,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/doctor/appointments/{id}', [DoctorAppointmentController::class, 'show'])->name('doctor.appointments.show');
         Route::get('/doctor/prescription/{appointment}', [PrescriptionController::class,'create'])->name('doctor.prescription.create');
 
-Route::post('/doctor/prescription/{appointment}/store', [PrescriptionController::class,'store'])->name('doctor.prescription.store');
-   
+        Route::post('/doctor/prescription/{appointment}/store', [PrescriptionController::class,'store'])->name('doctor.prescription.store');
+        Route::get('/doctor/patient-history/{patient}', [PatientHistoryController::class,'show'])->name('doctor.patient.history');
     });
 
 
