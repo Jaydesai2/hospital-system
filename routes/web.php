@@ -15,7 +15,8 @@ use App\Http\Controllers\Doctor\AppointmentController as DoctorAppointmentContro
 use App\Http\Controllers\Patient\BillingController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\AboutController;
-
+use App\Http\Controllers\Doctor\PrescriptionController;
+use App\Http\Controllers\Patient\PatientPrescriptionController;
 Route::get('/', function () {
     return view('index');
 });
@@ -82,6 +83,10 @@ Route::middleware('auth')->group(function () {
         Route::post('/doctor/appointments/{id}/cancel', [DoctorAppointmentController::class, 'cancel'])->name('doctor.appointments.cancel');
         Route::get('/doctor/today-schedule', [DoctorAppointmentController::class, 'todaySchedule'])->name('doctor.today.schedule');
         Route::get('/doctor/appointments/{id}', [DoctorAppointmentController::class, 'show'])->name('doctor.appointments.show');
+        Route::get('/doctor/prescription/{appointment}', [PrescriptionController::class,'create'])->name('doctor.prescription.create');
+
+Route::post('/doctor/prescription/{appointment}/store', [PrescriptionController::class,'store'])->name('doctor.prescription.store');
+   
     });
 
 
@@ -96,7 +101,7 @@ Route::middleware('auth')->group(function () {
             return view('patient.support.support');
         })->name('patient.support');
         Route::get('/patient/available-slots/{doctor}/{date}', [AppointmentController::class, 'availableSlots']);
-
+        Route::get('/patient/prescription/{appointment}', [PatientPrescriptionController::class,'show'])->name('patient.prescription.show');
     });
 
 });
